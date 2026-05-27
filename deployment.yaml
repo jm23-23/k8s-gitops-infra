@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moja-aplikacja
+  namespace: default
+spec:
+  replicas: 2 # Uruchomimy 2 pody, idealnie rozłożą się na Twoje 2 nody
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
