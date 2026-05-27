@@ -4,7 +4,7 @@ metadata:
   name: moja-aplikacja
   namespace: default
 spec:
-  replicas: 2 # Uruchomimy 2 pody, idealnie rozłożą się na Twoje 2 nody
+  replicas: 4 # Uruchomimy 2 pody, idealnie rozłożą się na Twoje 2 nody
   selector:
     matchLabels:
       app: web
