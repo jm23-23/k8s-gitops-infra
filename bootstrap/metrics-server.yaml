@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: metrics-server
+    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    targetRevision: 3.12.1 # Wersja Helm Chartu
+    helm:
+      values: |
+        args:
+          - --kubelet-insecure-tls # Wymagane dla Docker Desktop
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system # Standardowe miejsce dla metrics-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    createNamespace: true
