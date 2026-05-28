@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1@secret": "file:///home/janusz/k8s-gitops-infra/apps/my-app/db-config.yaml"
+    }
+}
