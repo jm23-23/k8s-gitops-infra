@@ -1,27 +1,17 @@
-# 1. Tworzymy przestrzeń nazw dla ArgoCD
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: argocd
----
-# 2. Instalujemy oficjalne, czyste ArgoCD
-apiVersion: builtin
-kind: Kustomization
-resources:
-  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
----
-# 3. Podpinamy automatyczną instalację Metrics i External Secrets z Twojego GitHuba
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: root-bootstrap
   namespace: argocd
+  # Używamy adnotacji, aby ArgoCD mogło zarządzać procesem po swoim starcie
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
-    repoURL: https://github.com/TWOJ-USER/k8s-gitops-infra.git # <-- ZMIEŃ NA SWÓJ LINK
+    repoURL: https://github.com/TWOJ-USER/k8s-gitops-infra.git # <-- Pamiętaj o zmianie na swój login!
     targetRevision: HEAD
-    path: bootstrap # Wskazujemy na folder z komponentami systemowymi
+    path: bootstrap
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
