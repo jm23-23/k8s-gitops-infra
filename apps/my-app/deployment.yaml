@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moja-aplikacja
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web-app
+        # Przełączamy się na aplikację, która potrafi komunikować się z bazą danych
+        image: bkimminich/juice-shop:v15.0.0 
+        ports:
+        - containerPort: 3000
+        env:
+        # Przekazujemy aplikacji namiary na bazę danych
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST

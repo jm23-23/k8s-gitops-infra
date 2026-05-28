@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  namespace: default
+spec:
+  DB_HOST: postgres-svc
+  DB_NAME: szkolenie_db
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: default
+type: Opaque
+data:
+  # Wartości w Secret K8s muszą być w formacie Base64.
+  # 'postgres' w Base64 to 'cG9zdGdyZXM='
+  # 'moje_tajne_haslo' w Base64 to 'bW9qZV90YWpuZV9oYXNsbw=='
+  DB_USER: cG9zdGdyZXM=
+  DB_PASSWORD: bW9qZV90YWpuZV9oYXNsbw==
