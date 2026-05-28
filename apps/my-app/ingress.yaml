@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: moja-aplikacja-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: moja-aplikacja.local # Twoja własna lokalna domena
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: moja-aplikacja-svc # Nazwa Twojego serwisu
+            port:
+              number: 80 # Port Twojego serwisu
