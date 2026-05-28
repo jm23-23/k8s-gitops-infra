@@ -16,4 +16,4 @@ spec:
           service:
             name: moja-aplikacja-svc # Nazwa Twojego serwisu
             port:
-              number: 80 # Port Twojego serwisu
+              number: 8090 # Port Twojego serwisu
